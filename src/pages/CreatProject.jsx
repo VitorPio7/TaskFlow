@@ -19,21 +19,21 @@ export default function CreatProject() {
           title: title,
           description: description,
           date: date,
+          anotations: [],
         },
       ];
     });
-    console.log(Array.isArray(formCreate));
   };
   return (
     <div className="grid grid-cols-2">
       <aside>
         <h1>YOUR PROJECTS</h1>
         <button>+ Add Project</button>
-        <ul>
+        <div className="grid grid-cols-1 cursor-pointer">
           {formCreate.map((el, index) => {
             return <li key={index}>{el.title}</li>;
           })}
-        </ul>
+        </div>
       </aside>
       <form className="grid grid-cols-1">
         <button>Cancel</button>
