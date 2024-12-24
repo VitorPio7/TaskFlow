@@ -38,6 +38,7 @@ export default function CreatProject() {
           title: title,
           description: description,
           date: date,
+          anotation: [],
         },
       ];
     });
