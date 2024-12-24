@@ -39,7 +39,11 @@ export default function ProjectDetail() {
         <div>
           <ul>
             {arrData?.anotation?.map((el, index) => {
-              return <li key={index}>{el}</li>;
+              return (
+                <div className="flex flex-row gap-2">
+                  <li key={index}>{el}</li> <button>Clear</button>
+                </div>
+              );
             })}
           </ul>
         </div>
