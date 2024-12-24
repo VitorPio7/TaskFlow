@@ -1,8 +1,7 @@
 import { useState, useRef } from "react";
-
+import Sidebar from "../components/Sidebar";
 export default function CreatProject() {
   let [formCreate, setFormCreate] = useState([]);
-
   let titleRef = useRef(null);
   let descriptionRef = useRef(null);
   let dueDateRef = useRef(null);
@@ -19,22 +18,17 @@ export default function CreatProject() {
           title: title,
           description: description,
           date: date,
-          anotations: [],
         },
       ];
     });
   };
   return (
     <div className="grid grid-cols-2">
-      <aside>
-        <h1>YOUR PROJECTS</h1>
-        <button>+ Add Project</button>
-        <div className="grid grid-cols-1 cursor-pointer">
-          {formCreate.map((el, index) => {
-            return <li key={index}>{el.title}</li>;
-          })}
-        </div>
-      </aside>
+      <Sidebar
+        title="YOUR PROJECTS"
+        button="+ Add Project"
+        formCreate={formCreate}
+      />
       <form className="grid grid-cols-1">
         <button>Cancel</button>
         <button onClick={handleSubmit}>Save</button>
