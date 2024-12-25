@@ -1,11 +1,23 @@
 import { useParams } from "react-router";
 import { useOutletContext } from "react-router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { Navigate } from "react-router";
 
 export default function ProjectDetail() {
   const { formCreate, setFormCreate } = useOutletContext();
+  const [changeBoolean, setChangeBoolean] = useState(false);
   const myParams = useParams();
   let anotationRef = useRef();
+  let arrData = formCreate?.find((el) => String(el.id) === myParams.id);
+
+  const deleteProject = (id) => {
+    setFormCreate((prevValue) => {
+      return prevValue.filter((el) => {
+        return id !== el.id;
+      });
+    });
+    setChangeBoolean(true);
+  };
 
   const addAnnotation = (e) => {
     e.preventDefault();
@@ -24,22 +36,29 @@ export default function ProjectDetail() {
     });
     anotationRef.current.value = "";
   };
+
   const deleteAnnotation = (e) => {
     setFormCreate((prevValue) => {
       return prevValue.map((project) => {
-        return {
-          ...project,
-          anotation: project.anotation.filter((el, index) => index !== e),
-        };
+        if (String(project.id) === myParams.id) {
+          return {
+            ...project,
+            anotation: project.anotation.filter((el, index) => index !== e),
+          };
+        }
       });
     });
   };
-  let arrData = formCreate?.find((el) => String(el.id) === myParams.id);
-  console.log(arrData);
+  if (changeBoolean === true) {
+    <Navigate to="/" />;
+  }
   return (
     <>
       <div>
-        <h1>{arrData?.title}</h1>
+        <div className="flex flex-1">
+          <h1>{arrData?.title}</h1>
+          <button onClick={() => deleteProject(arrData.id)}>Delete</button>
+        </div>
         <p>{arrData?.date}</p>
         <p>{arrData?.description}</p>
         <div>

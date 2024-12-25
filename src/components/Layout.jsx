@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { NavLink, Outlet } from "react-router";
+import { Navigate } from "react-router";
 
 export default function CreatProject() {
   let [formCreate, setFormCreate] = useState([
@@ -43,20 +44,27 @@ export default function CreatProject() {
       ];
     });
   };
-  console.log(formCreate);
+  if (formCreate.length === 0) {
+    return <Navigate to="noProject" />;
+  }
+
   return (
-    <div className="grid grid-cols-2">
-      <div>
-        <h1>YOUR PROJECTS</h1>
-        <button>+ ADD PROJECT</button>
-        <div className="grid grid-cols-1">
-          {formCreate.map((el, index) => {
-            return (
-              <NavLink key={index} to={el.id}>
-                {el.title}
-              </NavLink>
-            );
-          })}
+    <div className="flex flex-cols tex ">
+      <div className="  w-128 p-9 bg-black text-white justify-items-center align-items-cente">
+        <div className="h-dvh">
+          <h1 className="font-semibold text-4xl">YOUR PROJECTS</h1>
+          <button className="bg-gray w-72 h-10 rounded-md">
+            <NavLink to="/"> + ADD PROJECT</NavLink>
+          </button>
+          <div className="grid grid-cols-1">
+            {formCreate.map((el, index) => {
+              return (
+                <NavLink key={index} to={el.id}>
+                  {el.title}
+                </NavLink>
+              );
+            })}
+          </div>
         </div>
       </div>
       <Outlet
