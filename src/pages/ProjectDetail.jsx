@@ -24,6 +24,16 @@ export default function ProjectDetail() {
     });
     anotationRef.current.value = "";
   };
+  const deleteAnnotation = (e) => {
+    setFormCreate((prevValue) => {
+      return prevValue.map((project) => {
+        return {
+          ...project,
+          anotation: project.anotation.filter((el, index) => index !== e),
+        };
+      });
+    });
+  };
   let arrData = formCreate?.find((el) => String(el.id) === myParams.id);
   console.log(arrData);
   return (
@@ -40,8 +50,9 @@ export default function ProjectDetail() {
           <ul>
             {arrData?.anotation?.map((el, index) => {
               return (
-                <div className="flex flex-row gap-2">
-                  <li key={index}>{el}</li> <button>Clear</button>
+                <div className="flex flex-row gap-2" key={index}>
+                  <li>{el}</li>{" "}
+                  <button onClick={() => deleteAnnotation(index)}>Clear</button>
                 </div>
               );
             })}
