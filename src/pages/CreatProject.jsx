@@ -36,6 +36,7 @@ export default function CreatProject() {
           id="description"
           rows="5"
           cols="33"
+          maxLength="600"
         ></textarea>
       </label>
 
