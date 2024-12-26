@@ -50,7 +50,7 @@ export default function CreatProject() {
 
   return (
     <div className="flex flex-cols tex gap-10">
-      <div className="  w-128 p-9 bg-black text-white justify-items-center align-items-cente">
+      <div className=" w-128 p-9 bg-black text-white justify-items-center align-items-cente">
         <div className="h-dvh">
           <h1 className="font-semibold text-4xl">YOUR PROJECTS</h1>
           <button className="bg-gray w-72 h-10 rounded-md my-2">

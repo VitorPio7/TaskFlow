@@ -12,12 +12,6 @@ export default {
       xl: '1440px',
     },
     colors: {
-      'blue': '#1fb6ff',
-      'purple': '#7e5bef',
-      'pink': '#ff49db',
-      'orange': '#ff7849',
-      'green': '#13ce66',
-      'yellow': '#ffc82c',
       'white': '#FBFBFB',
       'black': '#180A0A',
       'gray': '#9aa6b2',
@@ -36,7 +30,7 @@ export default {
       },
       borderRadius: {
         '4xl': '2rem',
-      }
+      },
     }
   },
   plugins: [],
