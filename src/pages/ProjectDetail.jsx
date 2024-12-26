@@ -54,15 +54,24 @@ export default function ProjectDetail() {
   }
   return (
     <>
-      <div>
-        <div className="flex flex-1">
-          <h1>{arrData?.title}</h1>
-          <button onClick={() => deleteProject(arrData.id)}>Delete</button>
+      <div className=" p-9 w-2/3">
+        <div className="flex flex-1 gap-40  items-center w-full">
+          <h1 className="text-6xl font-bold">{arrData?.title}</h1>
+          <button
+            className="bg-black text-white rounded-lg w-40 h-10 shadow-md hover:bg-gray2 hover:text-black"
+            onClick={() => deleteProject(arrData.id)}
+          >
+            Delete
+          </button>
         </div>
         <p>{arrData?.date}</p>
         <p>{arrData?.description}</p>
         <div>
-          <input type="text" ref={anotationRef} />
+          <input
+            className="bg-light-gray bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 "
+            type="text"
+            ref={anotationRef}
+          />
           <button onClick={addAnnotation}>Add Task</button>
         </div>
         <div>

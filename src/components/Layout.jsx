@@ -49,17 +49,21 @@ export default function CreatProject() {
   }
 
   return (
-    <div className="flex flex-cols tex ">
+    <div className="flex flex-cols tex gap-10">
       <div className="  w-128 p-9 bg-black text-white justify-items-center align-items-cente">
         <div className="h-dvh">
           <h1 className="font-semibold text-4xl">YOUR PROJECTS</h1>
-          <button className="bg-gray w-72 h-10 rounded-md">
+          <button className="bg-gray w-72 h-10 rounded-md my-2">
             <NavLink to="/"> + ADD PROJECT</NavLink>
           </button>
           <div className="grid grid-cols-1">
             {formCreate.map((el, index) => {
               return (
-                <NavLink key={index} to={el.id}>
+                <NavLink
+                  key={index}
+                  to={el.id}
+                  className="text-xl hover:text-white my-1"
+                >
                   {el.title}
                 </NavLink>
               );
