@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { NavLink, Outlet } from "react-router";
-import { Navigate } from "react-router";
 
 export default function CreatProject() {
   let [formCreate, setFormCreate] = useState([
@@ -44,9 +43,6 @@ export default function CreatProject() {
       ];
     });
   };
-  if (formCreate.length === 0) {
-    return <Navigate to="noProject" />;
-  }
 
   return (
     <div className="gap-0  flex flex-cols lg:gap-10">

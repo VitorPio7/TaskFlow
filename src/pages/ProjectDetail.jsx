@@ -1,13 +1,12 @@
 import { useParams } from "react-router";
-import { useOutletContext } from "react-router";
-import { useRef, useState } from "react";
-import { Navigate } from "react-router";
+import { useOutletContext, useNavigate } from "react-router";
+import { useRef } from "react";
 
 export default function ProjectDetail() {
   const { formCreate, setFormCreate } = useOutletContext();
-  const [changeBoolean, setChangeBoolean] = useState(false);
   const myParams = useParams();
   let anotationRef = useRef();
+  const navitage = useNavigate();
   let arrData = formCreate?.find((el) => String(el.id) === myParams.id);
 
   const deleteProject = (id) => {
@@ -16,7 +15,7 @@ export default function ProjectDetail() {
         return id !== el.id;
       });
     });
-    setChangeBoolean(true);
+    navitage("/noProject");
   };
 
   const addAnnotation = (e) => {
@@ -49,9 +48,6 @@ export default function ProjectDetail() {
       });
     });
   };
-  if (changeBoolean === true) {
-    <Navigate to="/" />;
-  }
   return (
     <>
       <div className=" p-3 lg:p-9 lg:w-2/3">
@@ -59,6 +55,7 @@ export default function ProjectDetail() {
           <h1 className=" text-2xl  w-40  mt-1 mb-0 sm:text-2xl lg:w-96 lg:text-6xl font-bold m">
             {arrData?.title}
           </h1>
+
           <button
             className="bg-black w-16 h-8 text-xs text-white rounded-lg lg:text-lg lg:w-40 lg:h-11 hyphens-auto shadow-md hover:bg-gray2 hover:text-black"
             onClick={() => deleteProject(arrData.id)}
@@ -80,6 +77,7 @@ export default function ProjectDetail() {
             maxLength="600"
             ref={anotationRef}
           />
+
           <button
             className="bg-light-gray  w-16 text-xs lg:w-32 rounded-lg lg:text-lg  hover:shadow-lg"
             onClick={addAnnotation}

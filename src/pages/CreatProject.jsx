@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router";
 
 export default function CreatProject() {
-  const { titleRef, descriptionRef, dueDateRef, handleSubmit, formCreate } =
+  const { formCreate, titleRef, descriptionRef, dueDateRef, handleSubmit } =
     useOutletContext();
 
   console.log(formCreate);
