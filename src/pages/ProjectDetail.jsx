@@ -54,28 +54,30 @@ export default function ProjectDetail() {
   }
   return (
     <>
-      <div className=" p-9 w-2/3">
-        <div className="flex flex-1 gap-40  items-center w-full">
-          <h1 className="max-w-sm my-3 text-6xl font-bold">{arrData?.title}</h1>
+      <div className=" p-3 lg:p-9 lg:w-2/3">
+        <div className="flex flex-1 gap-1 lg:gap-40  items-center w-full">
+          <h1 className=" text-2xl  w-40  mt-1 mb-0 lg:text-6xl font-bold m">
+            {arrData?.title}
+          </h1>
           <button
-            className="bg-black text-white rounded-lg w-40 h-11 hyphens-auto shadow-md hover:bg-gray2 hover:text-black"
+            className="bg-black w-16 h-8 text-xs text-white rounded-lg  lg:w-40 lg:h-11 hyphens-auto shadow-md hover:bg-gray2 hover:text-black"
             onClick={() => deleteProject(arrData.id)}
           >
             Delete
           </button>
         </div>
-        <p className="my-2 text-2xl">{arrData?.date}</p>
-        <p className="my-2 text-2xl">{arrData?.description}</p>
-        <h1 className="text-4xl font-bold mt-5">Tasks</h1>
+        <p className=" lg:my-2 text-sm lg:2xl">{arrData?.date}</p>
+        <p className="lg:my-2 text-sm mt-8 lg:2xl">{arrData?.description}</p>
+        <h1 className="text-base font-bold lg:mt-5 lg:text-4xl ">Tasks</h1>
         <div className="flex gap-2">
           <input
-            className="bg-light-gray bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5 "
+            className="bg-light-gray bg-gray-50 border p-2.5 border-gray-300 text-gray-900 text-xs lg:text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-40 lg:w-96 lg:p-2.5 "
             type="text"
             maxLength="600"
             ref={anotationRef}
           />
           <button
-            className="bg-light-gray w-32 rounded-lg   hover:shadow-lg"
+            className="bg-light-gray  w-16 text-xs lg:w-32 rounded-lg   hover:shadow-lg"
             onClick={addAnnotation}
           >
             Add Task

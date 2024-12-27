@@ -49,11 +49,13 @@ export default function CreatProject() {
   }
 
   return (
-    <div className="flex flex-cols tex gap-10">
-      <div className=" w-128 p-9 bg-black text-white justify-items-center align-items-cente">
+    <div className="gap-0  flex flex-cols lg:gap-10">
+      <div className=" w-52  p-3 lg:w-128 lg:p-9 bg-black text-white justify-items-center lg:align-items-cente">
         <div className="h-dvh">
-          <h1 className="font-semibold text-4xl">YOUR PROJECTS</h1>
-          <button className="bg-gray w-72 h-10 rounded-md my-2">
+          <h1 className=" font-semibold text-base text-center sm:text-lg">
+            YOUR PROJECTS
+          </h1>
+          <button className=" w-36 text-sm h-8 bg-gray lg:w-40 lg:h-10 text-center lg:text-xs rounded-md my-2">
             <NavLink to="/"> + ADD PROJECT</NavLink>
           </button>
           <div className="grid grid-cols-1">
@@ -62,7 +64,7 @@ export default function CreatProject() {
                 <NavLink
                   key={index}
                   to={el.id}
-                  className="text-xl hover:text-white my-1"
+                  className="text-xm  hover:text-white my-1"
                 >
                   {el.title}
                 </NavLink>
