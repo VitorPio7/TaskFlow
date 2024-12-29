@@ -5,6 +5,7 @@ import { GoPencil } from "react-icons/go";
 
 export default function ProjectDetail() {
   const editAnotation = useRef("");
+  const [openBox, setopenBox] = useState(false);
   const { formCreate, setFormCreate } = useOutletContext();
   const myParams = useParams();
   let anotationRef = useRef();
@@ -19,6 +20,9 @@ export default function ProjectDetail() {
     });
     navitage("/noProject");
   };
+  function changeBox() {
+    setopenBox((prevValue) => !openBox);
+  }
 
   const addAnnotation = (e) => {
     e.preventDefault();
@@ -118,11 +122,19 @@ export default function ProjectDetail() {
                     {el}
                   </li>{" "}
                   <div>
-                    <input type="text" ref={editAnotation} />
-                    <button onClick={() => editeAnnotation(index)}>send</button>
-                    <button className="hover:shadow-lg ">
-                      <GoPencil />
-                    </button>
+                    {openBox ? (
+                      <>
+                        {" "}
+                        <input type="text" ref={editAnotation} />
+                        <button onClick={() => editeAnnotation(index)}>
+                          send
+                        </button>
+                      </>
+                    ) : (
+                      <button className="hover:shadow-lg " onClick={changeBox}>
+                        <GoPencil />
+                      </button>
+                    )}
                   </div>
                   <button
                     className="bg-white w-14 h-8 lg:w-20 lg:h-9 lg:text-lg rounded-lg text-xs hover:shadow-lg"
