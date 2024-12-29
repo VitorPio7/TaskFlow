@@ -59,10 +59,10 @@ export default function CreatProject() {
               return (
                 <NavLink
                   key={index}
-                  to={el.id}
+                  to={el?.id}
                   className="text-xs lg:text-lg hover:text-white my-1"
                 >
-                  {el.title}
+                  {el?.title}
                 </NavLink>
               );
             })}

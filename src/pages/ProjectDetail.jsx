@@ -1,14 +1,16 @@
 import { useParams } from "react-router";
 import { useOutletContext, useNavigate } from "react-router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { GoPencil } from "react-icons/go";
 
 export default function ProjectDetail() {
+  const editAnotation = useRef("");
   const { formCreate, setFormCreate } = useOutletContext();
   const myParams = useParams();
   let anotationRef = useRef();
   const navitage = useNavigate();
-  let arrData = formCreate?.find((el) => String(el.id) === myParams.id);
-
+  let arrData = formCreate?.find((el) => String(el?.id) === myParams.id);
+  console.log(formCreate);
   const deleteProject = (id) => {
     setFormCreate((prevValue) => {
       return prevValue.filter((el) => {
@@ -24,10 +26,10 @@ export default function ProjectDetail() {
     if (!annotaitionValue.trim()) return;
     setFormCreate((prevValue) => {
       return prevValue.map((project) => {
-        if (String(project.id) === myParams.id) {
+        if (String(project?.id) === myParams?.id) {
           return {
             ...project,
-            anotation: [...project.anotation, annotaitionValue],
+            anotation: [...project?.anotation, annotaitionValue],
           };
         }
         return project;
@@ -39,10 +41,29 @@ export default function ProjectDetail() {
   const deleteAnnotation = (e) => {
     setFormCreate((prevValue) => {
       return prevValue.map((project) => {
-        if (String(project.id) === myParams.id) {
+        if (String(project?.id) === myParams.id) {
           return {
             ...project,
             anotation: project.anotation.filter((el, index) => index !== e),
+          };
+        }
+      });
+    });
+  };
+  const editeAnnotation = (e) => {
+    console.log(e);
+    const annotaitionValue = editAnotation.current;
+    console.log(annotaitionValue);
+    setFormCreate((prevValue) => {
+      return prevValue.map((project) => {
+        if (String(project?.id) === myParams.id) {
+          return {
+            ...project,
+            anotation: project?.anotation.map((el, index) => {
+              if (e === index) {
+                return (el = annotaitionValue.value);
+              }
+            }),
           };
         }
       });
@@ -96,6 +117,13 @@ export default function ProjectDetail() {
                   <li className="max-w-44 my-2  text-justify text-xs sm:max-w-60 lg:my-2 lg:text-2xl md:max-w-96 lg:max-w-screen-lg ">
                     {el}
                   </li>{" "}
+                  <div>
+                    <input type="text" ref={editAnotation} />
+                    <button onClick={() => editeAnnotation(index)}>send</button>
+                    <button className="hover:shadow-lg ">
+                      <GoPencil />
+                    </button>
+                  </div>
                   <button
                     className="bg-white w-14 h-8 lg:w-20 lg:h-9 lg:text-lg rounded-lg text-xs hover:shadow-lg"
                     onClick={() => deleteAnnotation(index)}
