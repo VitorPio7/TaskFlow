@@ -20,9 +20,6 @@ export default function ProjectDetail() {
     });
     navitage("/noProject");
   };
-  function changeBox() {
-    setopenBox((prevValue) => !openBox);
-  }
 
   const addAnnotation = (e) => {
     e.preventDefault();
@@ -39,6 +36,7 @@ export default function ProjectDetail() {
         return project;
       });
     });
+    setopenBox(!openBox);
     anotationRef.current.value = "";
   };
 
@@ -124,16 +122,18 @@ export default function ProjectDetail() {
                   <div>
                     {openBox ? (
                       <>
-                        {" "}
                         <input type="text" ref={editAnotation} />
                         <button onClick={() => editeAnnotation(index)}>
                           send
                         </button>
                       </>
                     ) : (
-                      <button className="hover:shadow-lg " onClick={changeBox}>
-                        <GoPencil />
-                      </button>
+                      <>
+                        {" "}
+                        <button onClick={() => setopenBox(!openBox)}>
+                          <GoPencil />
+                        </button>
+                      </>
                     )}
                   </div>
                   <button
