@@ -6,96 +6,107 @@ import { GoPencil } from "react-icons/go";
 export default function ProjectDetail() {
   const [editIndex, setEditIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
-  const [openBox, setOpenBox] = useState(false);
+  const [openBox, setopenBox] = useState(false);
   const { formCreate, setFormCreate } = useOutletContext();
   const myParams = useParams();
-  const navigate = useNavigate();
+  const navitage = useNavigate();
   let arrData = formCreate?.find((el) => String(el?.id) === myParams.id);
 
   const deleteProject = (id) => {
-    setFormCreate((prevValue) => prevValue.filter((el) => el.id !== id));
-    navigate("/noProject");
+    setFormCreate((prevValue) => {
+      return prevValue.filter((el) => {
+        return id !== el.id;
+      });
+    });
+    navitage("/noProject");
   };
 
   const addAnnotation = (e) => {
     e.preventDefault();
     const annotaitionValue = e.target.elements.annotationInput.value.trim();
     if (!annotaitionValue) return;
+    setFormCreate((prevValue) => {
+      return prevValue.map((project) => {
+        if (String(project?.id) === myParams?.id) {
+          return {
+            ...project,
+            anotation: [...project?.anotation, annotaitionValue],
+          };
+        }
+        return project;
+      });
+    });
 
-    setFormCreate((prevValue) =>
-      prevValue.map((project) =>
-        String(project?.id) === myParams?.id
-          ? { ...project, anotation: [...project.anotation, annotaitionValue] }
-          : project
-      )
-    );
     e.target.elements.annotationInput.value = "";
   };
 
-  const deleteAnnotation = (indexToDelete) => {
-    setFormCreate((prevValue) =>
-      prevValue.map((project) =>
-        String(project?.id) === myParams.id
-          ? {
-              ...project,
-              anotation: project.anotation.filter(
-                (_, i) => i !== indexToDelete
-              ),
-            }
-          : project
-      )
-    );
+  const deleteAnnotation = (e) => {
+    setFormCreate((prevValue) => {
+      return prevValue.map((project) => {
+        if (String(project?.id) === myParams.id) {
+          return {
+            ...project,
+            anotation: project.anotation.filter((el, index) => index !== e),
+          };
+        }
+        return project;
+      });
+    });
   };
+
   const editAnnotation = () => {
     if (!editValue.trim()) return;
 
-    setFormCreate((prevValue) =>
-      prevValue.map((project) =>
-        String(project?.id) === myParams.id
-          ? {
-              ...project,
-              anotation: project.anotation.map((el, i) =>
-                i === editIndex ? editValue : el
-              ),
-            }
-          : project
-      )
-    );
-
+    setFormCreate((prevValue) => {
+      return prevValue.map((project) => {
+        if (String(project?.id) === myParams.id) {
+          return {
+            ...project,
+            anotation: project?.anotation.map((el, index) =>
+              index === editIndex ? editValue : el
+            ),
+          };
+        }
+        return project;
+      });
+    });
     setEditIndex(null);
     setEditValue("");
-    setOpenBox(false);
+    setopenBox(false);
   };
 
   return (
     <>
-      <div className="p-3 lg:p-9 lg:w-2/3">
-        <div className="flex flex-1 gap-1 lg:gap-40 items-center w-full">
-          <h1 className="text-2xl w-40 mt-1 mb-0 sm:text-2xl lg:w-96 lg:text-6xl font-bold">
+      <div className=" p-3 lg:p-9 lg:w-2/3">
+        <div className="flex flex-1 gap-1 lg:gap-40  items-center w-full">
+          <h1 className=" text-2xl  w-40  mt-1 mb-0 sm:text-2xl lg:w-96 lg:text-6xl font-bold m">
             {arrData?.title}
           </h1>
 
           <button
-            className="bg-black w-16 h-8 text-xs text-white rounded-lg lg:text-lg lg:w-40 lg:h-11 shadow-md hover:bg-gray2 hover:text-black"
+            className="bg-black w-16 h-8 text-xs text-white rounded-lg lg:text-lg lg:w-40 lg:h-11 hyphens-auto shadow-md hover:bg-gray2 hover:text-black"
             onClick={() => deleteProject(arrData.id)}
           >
             Delete
           </button>
         </div>
-        <p className="lg:my-2 text-sm lg:text-lg xl:2xl">{arrData?.date}</p>
-        <p className="mt-2 lg:my-2 text-sm lg:text-lg lg:mt-5 xl:2xl">
+        <p className=" lg:my-2 text-sm lg:text-lg xl:2xl lg:3xl">
+          {arrData?.date}
+        </p>
+        <p className=" mt-2 lg:my-2 text-sm lg:text-lg lg:mt-5 xl:2xl lg:2xl">
           {arrData?.description}
         </p>
-        <h1 className="text-base font-bold lg:mt-5 lg:text-4xl">Tasks</h1>
+        <h1 className="text-base font-bold lg:mt-5 lg:text-4xl ">Tasks</h1>
         <form onSubmit={addAnnotation} className="flex gap-2">
           <input
-            className="bg-light-gray border p-2.5 text-gray-900 text-xs lg:text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-40 lg:w-96"
+            className="bg-light-gray bg-gray-50 border p-2.5 border-gray-300 text-gray-900 text-xs sm:w-56 md:w-96 lg:text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-40 lg:w-96 lg:p-2.5 "
             type="text"
-            name="annotationInput"
             maxLength="600"
+            name="annotationInput"
           />
+
           <button
-            className="bg-light-gray w-16 text-xs lg:w-32 rounded-lg lg:text-lg hover:shadow-lg"
+            className="bg-light-gray  w-16 text-xs lg:w-32 rounded-lg lg:text-lg  hover:shadow-lg"
             type="submit"
           >
             Add Task
@@ -103,45 +114,54 @@ export default function ProjectDetail() {
         </form>
         <div>
           <ul>
-            {arrData?.anotation?.map((el, index) => (
-              <div
-                className="flex flex-row my-2 gap-1 lg:gap-7 items-center"
-                key={index}
-              >
-                {editIndex === index ? (
-                  <>
-                    <input
-                      type="text"
-                      value={editValue}
-                      onChange={(e) => setEditValue(e.target.value)}
-                      className="text-xs lg:text-xl p-1 border rounded"
-                    />
-                    <button onClick={editAnnotation} className="ml-2">
-                      Save
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <li className="text-xs lg:text-2xl">{el}</li>
-                    <button
-                      onClick={() => {
-                        setEditIndex(index);
-                        setEditValue(el);
-                        setOpenBox(true);
-                      }}
-                    >
-                      <GoPencil />
-                    </button>
-                  </>
-                )}
-                <button
-                  className="bg-white w-14 h-8 lg:w-20 lg:h-9 lg:text-lg rounded-lg text-xs hover:shadow-lg"
-                  onClick={() => deleteAnnotation(index)}
+            {arrData?.anotation?.map((el, index) => {
+              return (
+                <div
+                  className="flex flex-row my-2 gap-1 lg:gap-7 items-center lg:my-3"
+                  key={index}
                 >
-                  Clear
-                </button>
-              </div>
-            ))}
+                  {editIndex === index ? (
+                    <div className=" flex gap-2">
+                      <input
+                        type="text"
+                        value={editValue}
+                        onChange={(e) => setEditValue(e.target.value)}
+                        className="text-xs lg:text-xl p-1 border rounded ml-2"
+                      />
+                      <button
+                        onClick={editAnnotation}
+                        className="bg-white w-14 h-8 lg:w-20 lg:h-9 lg:text-lg rounded-lg text-xs hover:shadow-lg"
+                      >
+                        Send
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-row gap-2">
+                      {" "}
+                      <li className="max-w-44 my-2  text-justify text-xs sm:max-w-60 lg:my-2 lg:text-2xl md:max-w-96 lg:max-w-screen-lg ">
+                        {el}
+                      </li>{" "}
+                      <button
+                        onClick={() => {
+                          setEditIndex(index);
+                          setEditValue(el);
+                          setopenBox(true);
+                        }}
+                        className="bg-white flex justify-center align-middle w-8 h-8 lg:w-20 lg:h-9 lg:text-lg rounded-lg text-xs hover:shadow-lg"
+                      >
+                        <GoPencil className="h-full" />
+                      </button>
+                      <button
+                        className="bg-white w-14 h-8 lg:w-20 lg:h-9 lg:text-lg rounded-lg text-xs hover:shadow-lg"
+                        onClick={() => deleteAnnotation(index)}
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </ul>
         </div>
       </div>
