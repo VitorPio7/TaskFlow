@@ -78,7 +78,7 @@ export default function ProjectDetail() {
 
   return (
     <>
-      <div className=" p-3 lg:p-9 lg:w-2/3">
+      <div className="w-screen  p-3 lg:p-9 lg:w-2/3">
         <div className="flex flex-1 gap-1 lg:gap-40  items-center w-full">
           <h1 className=" text-2xl  w-40  mt-1 mb-0 sm:text-2xl lg:w-96 lg:text-6xl font-bold m">
             {arrData?.title}
@@ -94,7 +94,7 @@ export default function ProjectDetail() {
         <p className=" lg:my-2 text-sm lg:text-lg xl:2xl lg:3xl">
           {arrData?.date}
         </p>
-        <p className=" mt-2 lg:my-2 text-sm lg:text-lg lg:mt-5 xl:2xl lg:2xl">
+        <p className="max-w-44 my-2  text-justify  sm:max-w-60 lg:my-2 lg:text-lg md:max-w-96 lg:max-w-screen-lg mt-2 text-sm lg:mt-5 xl:2xl lg:2xl">
           {arrData?.description}
         </p>
         <h1 className="text-base font-bold lg:mt-5 lg:text-4xl ">Tasks</h1>
@@ -123,7 +123,7 @@ export default function ProjectDetail() {
                 >
                   {editIndex === index ? (
                     <div className=" flex gap-2">
-                      <input
+                      <textarea
                         type="text"
                         value={editValue}
                         onChange={(e) => setEditValue(e.target.value)}

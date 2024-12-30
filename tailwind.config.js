@@ -19,11 +19,12 @@ export default {
       'gray2': '#e9ecef',
       'blackLight': '#495057',
       'red': "#B31312",
-      'red2': '#FF0303',
+      'red2': '#F2385A',
       'green': "#17B978",
       'green2': '#0CCA98',
       'yellow': "#FDCA40",
-      'yellow2': '#FFD717'
+      'yellow2': '#FFD717',
+      'gray3': '#686D76'
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
