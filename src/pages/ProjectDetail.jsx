@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import { useOutletContext, useNavigate } from "react-router";
 import { useState } from "react";
 import { GoPencil } from "react-icons/go";
+import { PiBroomLight } from "react-icons/pi";
 
 export default function ProjectDetail() {
   const [editIndex, setEditIndex] = useState(null);
@@ -84,7 +85,7 @@ export default function ProjectDetail() {
           </h1>
 
           <button
-            className="bg-black w-16 h-8 text-xs text-white rounded-lg lg:text-lg lg:w-40 lg:h-11 hyphens-auto shadow-md hover:bg-gray2 hover:text-black"
+            className="bg-red font-bold w-16 h-8 text-xs text-white rounded-lg lg:text-lg lg:w-40 lg:h-11 hyphens-auto shadow-md hover:bg-red2 hover:text-white"
             onClick={() => deleteProject(arrData.id)}
           >
             Delete
@@ -106,7 +107,7 @@ export default function ProjectDetail() {
           />
 
           <button
-            className="bg-light-gray  w-16 text-xs lg:w-32 rounded-lg lg:text-lg  hover:shadow-lg"
+            className="bg-yellow text-white font-bold w-16 text-xs lg:w-32 rounded-lg lg:text-lg  hover:shadow-lg hover:bg-yellow2"
             type="submit"
           >
             Add Task
@@ -130,13 +131,13 @@ export default function ProjectDetail() {
                       />
                       <button
                         onClick={editAnnotation}
-                        className="bg-white w-14 h-8 lg:w-20 lg:h-9 lg:text-lg rounded-lg text-xs hover:shadow-lg"
+                        className="bg-yellow text-white w-14 h-8 lg:w-20 lg:h-9 lg:text-lg rounded-lg text-xs hover:shadow-lg hover:bg-yellow2"
                       >
                         Send
                       </button>
                     </div>
                   ) : (
-                    <div className="flex flex-row gap-2">
+                    <div className="flex flex-row gap-2 content-center items-center">
                       {" "}
                       <li className="max-w-44 my-2  text-justify text-xs sm:max-w-60 lg:my-2 lg:text-2xl md:max-w-96 lg:max-w-screen-lg ">
                         {el}
@@ -147,15 +148,15 @@ export default function ProjectDetail() {
                           setEditValue(el);
                           setopenBox(true);
                         }}
-                        className="bg-white flex justify-center align-middle w-8 h-8 lg:w-20 lg:h-9 lg:text-lg rounded-lg text-xs hover:shadow-lg"
+                        className=" bg-green  flex justify-center align-middle w-8 h-8 lg:w-9 lg:h-9 lg:text-lg rounded-lg text-xs hover:bg-green2 hover:shadow-lg"
                       >
-                        <GoPencil className="h-full" />
+                        <GoPencil className="h-full text-white" />
                       </button>
                       <button
-                        className="bg-white w-14 h-8 lg:w-20 lg:h-9 lg:text-lg rounded-lg text-xs hover:shadow-lg"
+                        className="bg-red flex justify-center text-white w-8 h-8 lg:w-9 lg:h-9 lg:text-lg rounded-lg text-xs hover:shadow-lg hover:bg-red2"
                         onClick={() => deleteAnnotation(index)}
                       >
-                        Clear
+                        <PiBroomLight className="h-full text-white" />
                       </button>
                     </div>
                   )}
