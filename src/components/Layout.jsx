@@ -49,7 +49,7 @@ export default function CreatProject() {
       <div className=" w-52  p-3 lg:w-128 lg:p-9 bg-black text-white justify-items-center align-items-cente">
         <div className="h-dvh">
           <h1 className=" font-semibold text-base text-center lg:text-4xl sm:text-lg">
-            YOUR PROJECTS
+            TASKFLOW
           </h1>
           <button className=" w-36 text-xs h-8 bg-gray lg:align-middle  lg:w-40 lg:h-10 text-center hover:bg-gray3 lg:text-xs rounded-md my-2">
             <NavLink to="/"> + ADD PROJECT</NavLink>

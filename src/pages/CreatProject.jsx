@@ -26,6 +26,7 @@ export default function CreatProject() {
           ref={titleRef}
           id="title"
           maxLength="15"
+          placeholder="max-15"
           minLength="3"
         />
       </label>
@@ -39,6 +40,7 @@ export default function CreatProject() {
           rows="5"
           cols="33"
           maxLength="600"
+          placeholder="max-600"
         ></textarea>
       </label>
 
