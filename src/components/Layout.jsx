@@ -20,6 +20,9 @@ export default function CreatProject() {
 
   const addAnnotation = (e) => {
     e.preventDefault();
+    if (!anotationRef.current.value.length === 0) {
+      return;
+    }
     return {
       ...prevValue,
       anotation: [...prevValue, anotationRef.current.value],
@@ -31,6 +34,9 @@ export default function CreatProject() {
     let title = titleRef.current.value;
     let description = descriptionRef.current.value;
     let date = dueDateRef.current.value;
+    if (title.length === 0 || description.length === 0 || date.length === 0) {
+      return;
+    }
     setFormCreate((prevValue) => {
       return [
         ...prevValue,

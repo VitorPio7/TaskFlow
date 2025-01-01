@@ -2,7 +2,7 @@ import { NavLink } from "react-router";
 
 export default function NoProject() {
   return (
-    <div className="gap-3 flex flex-col w-full items-center justify-center sm:">
+    <div className="gap-3 p-5 flex flex-col w-full items-center justify-center sm:">
       <img src="logo.png" alt="logo" className="w-10 lg:w-36 xl:w-36" />
       <h1 className="text-3x1 lg:text-4xl xl:text-4xl font-bold ">
         No Project Selected
