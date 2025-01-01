@@ -46,9 +46,9 @@ export default function CreatProject() {
   };
 
   return (
-    <div className="gap-0  flex flex-col lg:flex-row lg:h-vh lg:gap-10">
-      <div className=" w-screen h-28 p-3 lg:w-128 lg:p-9 bg-black text-white justify-items-center align-items-cente">
-        <div className="h-dvh">
+    <div className="gap-0  flex flex-col lg:flex-row  lg:gap-10">
+      <div className=" flex justify-center w-screen h-56 p-3  xl:h-screen lg:h-screen lg:w-128 lg:p-9 bg-black text-white justify-items-center align-items-cente">
+        <div className="flex flex-col self-center items-center ">
           <h1 className=" font-semibold text-base text-center lg:text-4xl sm:text-lg">
             TASKFLOW
           </h1>
@@ -56,13 +56,13 @@ export default function CreatProject() {
           <MainButton color=" bg-gray" hover="bg-gray3">
             <NavLink to="/"> + ADD PROJECT</NavLink>
           </MainButton>
-          <div className="grid grid-cols-3 grid-rows-4">
+          <div className="grid grid-cols-3 grid-rows-7 px-4">
             {formCreate.map((el, index) => {
               return (
                 <NavLink
                   key={index}
                   to={el?.id}
-                  className="text-xs lg:text-lg hover:text-white my-1"
+                  className=" m-2 text-xs lg:text-lg hover:text-white my-1"
                 >
                   {el?.title}
                 </NavLink>

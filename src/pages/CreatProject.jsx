@@ -25,8 +25,8 @@ export default function CreatProject() {
           type="text"
           ref={titleRef}
           id="title"
-          maxLength="15"
-          placeholder="max-15"
+          maxLength="12"
+          placeholder="max-12"
           minLength="3"
         />
       </label>

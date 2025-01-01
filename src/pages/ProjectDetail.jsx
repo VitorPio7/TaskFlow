@@ -80,7 +80,7 @@ export default function ProjectDetail() {
 
   return (
     <>
-      <div className="w-screen  p-3 lg:p-9 lg:w-2/3">
+      <div className="w-screen   p-3 lg:p-9 lg:w-2/3">
         <InfoProject
           title={arrData?.title}
           date={arrData?.date}

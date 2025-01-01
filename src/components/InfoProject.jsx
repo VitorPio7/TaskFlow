@@ -7,8 +7,8 @@ export default function InfoProject({
   children,
 }) {
   return (
-    <>
-      <div className="flex flex-1 gap-1 lg:gap-40  items-center w-full">
+    <div className=" p-3">
+      <div className="flex flex-1  gap-1 lg:gap-40  items-center w-full">
         <h1 className=" text-2xl  w-40  mt-1 mb-0 sm:text-2xl lg:w-96 lg:text-6xl font-bold m">
           {title}
         </h1>
@@ -22,6 +22,6 @@ export default function InfoProject({
         {description}
       </p>
       <h1 className="text-base font-bold lg:mt-5 lg:text-4xl ">{children}</h1>
-    </>
+    </div>
   );
 }
