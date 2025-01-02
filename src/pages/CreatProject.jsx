@@ -6,7 +6,7 @@ export default function CreatProject() {
 
   console.log(formCreate);
   return (
-    <div className="flex justify-center items-center h-full p-3">
+    <div className=" h-full flex justify-center p-3">
       <form className="flex flex-col  content-center justify-center    w-60 lg:p-8 lg:w-144 lg:gap-y-3">
         <div className="flex flex-row justify-end gap-4 lg:gap-4">
           <button

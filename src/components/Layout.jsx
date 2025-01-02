@@ -53,7 +53,7 @@ export default function CreatProject() {
 
   return (
     <div className="gap-0  flex flex-col justify-items-center  lg:flex-row xl:flex-row md:flex-row lg:gap-10">
-      <div className=" flex justify-center w-screen h-56 p-3  lg:h-screen lg:w-128 lg:p-9 xl:w-128 xl:p-9 xl:h-screen md:w-96 md:p-7 md:h-screen  bg-black text-white ">
+      <div className=" flex justify-center w-screen h-fit p-3   lg:rounded-r-3xl lg:h-screen lg:w-128 lg:p-9 xl:rounded-r-3xl xl:w-128 xl:p-9 xl:h-screen md:rounded-r-3xl md:w-96 md:p-7 md:h-screen  bg-black text-white ">
         <div className="flex flex-col self-center items-center xl:items-start xl:self-start lg:self-start  lg:items-start  md:self-start md:items-start ">
           <h1 className=" font-semibold mt-3 text-base text-center xl:text-4x1 lg:text-4xl md:text-3xl  sm:text-lg">
             TASKFLOW
