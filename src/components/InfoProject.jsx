@@ -6,6 +6,25 @@ export default function InfoProject({
   description,
   children,
 }) {
+  function formatDate(e) {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const [year, month, day] = e.split("-");
+    const monthName = months[parseInt(month, 10) - 1];
+    return `${monthName} ${day}, ${year}`;
+  }
   return (
     <div className=" p-3">
       <div className="flex flex-1  gap-1 lg:gap-40  items-center w-full">
@@ -19,7 +38,7 @@ export default function InfoProject({
       </div>
       <div>
         <p className=" -mt-2 p-0 lg:my-2 text-sm lg:text-lg xl:2xl lg:3xl">
-          {date}
+          {formatDate(date)}
         </p>
         <p className="max-w-72 my-2  text-justify  sm:max-w-60 lg:my-2 lg:text-lg md:max-w-96 lg:max-w-screen-lg mt-2 text-sm lg:mt-5 xl:2xl lg:2xl">
           {description}

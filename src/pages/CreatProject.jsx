@@ -53,6 +53,8 @@ export default function CreatProject() {
             ref={dueDateRef}
             id="dueDate"
             type="date"
+            placeholder="MM DD, YYYY"
+            pattern="^(0[1-9]|1[0-2])\s(0[1-9]|[12][0-9]|3[01]),\s\d{4}$"
             required
           />
         </label>
