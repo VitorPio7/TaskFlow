@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useReducer } from "react";
 import { NavLink, Outlet } from "react-router";
 import MainButton from "./elements/MainButton";
 
