@@ -1,4 +1,4 @@
-import { useState, useRef, useReducer } from "react";
+import { useState, useRef, useCallback } from "react";
 import { NavLink, Outlet } from "react-router";
 import MainButton from "./elements/MainButton";
 
@@ -18,38 +18,44 @@ export default function CreatProject() {
   let dueDateRef = useRef(null);
   let anotationRef = useRef();
 
-  const addAnnotation = (e) => {
-    e.preventDefault();
-    if (!anotationRef.current.value.length === 0) {
-      return;
-    }
-    return {
-      ...prevValue,
-      anotation: [...prevValue, anotationRef.current.value],
-    };
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let title = titleRef.current.value;
-    let description = descriptionRef.current.value;
-    let date = dueDateRef.current.value;
-    if (title.length === 0 || description.length === 0 || date.length === 0) {
-      return;
-    }
-    setFormCreate((prevValue) => {
-      return [
+  const addAnnotation = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!anotationRef.current.value.length === 0) {
+        return;
+      }
+      return {
         ...prevValue,
-        {
-          id: String(Date.now()),
-          title: title,
-          description: description,
-          date: date,
-          anotation: [],
-        },
-      ];
-    });
-  };
+        anotation: [...prevValue, anotationRef.current.value],
+      };
+    },
+    [anotationRef]
+  );
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      let title = titleRef.current.value;
+      let description = descriptionRef.current.value;
+      let date = dueDateRef.current.value;
+      if (title.length === 0 || description.length === 0 || date.length === 0) {
+        return;
+      }
+      setFormCreate((prevValue) => {
+        return [
+          ...prevValue,
+          {
+            id: String(Date.now()),
+            title: title,
+            description: description,
+            date: date,
+            anotation: [],
+          },
+        ];
+      });
+    },
+    [formCreate]
+  );
 
   return (
     <div className="gap-0  flex flex-col justify-items-center  lg:flex-row xl:flex-row md:flex-row lg:gap-10">
@@ -63,10 +69,10 @@ export default function CreatProject() {
             <NavLink to="/"> + ADD PROJECT</NavLink>
           </MainButton>
           <div className="grid grid-cols-3 grid-rows-7 px-4 lg:flex lg:flex-col lg:px-0 md:flex md:flex-col md:px-0">
-            {formCreate.map((el, index) => {
+            {formCreate.map((el) => {
               return (
                 <NavLink
-                  key={index}
+                  key={el?.id}
                   to={el?.id}
                   className=" m-2 text-xs  lg:text-lg hover:text-white my-1"
                 >
