@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useOutletContext, useNavigate } from "react-router";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import InfoProject from "../components/InfoProject";
 import EditTask from "../components/EditTask";
 import Tasks from "../components/Tasks";
@@ -13,7 +13,10 @@ export default function ProjectDetail() {
   const { formCreate, setFormCreate } = useOutletContext();
   const myParams = useParams();
   const navitage = useNavigate();
-  let arrData = formCreate?.find((el) => String(el?.id) === myParams.id);
+
+  let arrData = useMemo(() => {
+    return formCreate?.find((el) => String(el?.id) === myParams.id);
+  }, [formCreate]);
 
   const deleteProject = (id) => {
     setFormCreate((prevValue) => {
