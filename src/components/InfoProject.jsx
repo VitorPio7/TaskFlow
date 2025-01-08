@@ -1,12 +1,14 @@
+import { memo } from "react";
 import MainButton from "./elements/MainButton";
-export default function InfoProject({
+
+let InfoProject = memo(function InfoProject({
   title,
   eventDelete,
   date,
   description,
   children,
 }) {
-  function formatDate(e) {
+  let formatDate = (e) => {
     const months = [
       "Jan",
       "Feb",
@@ -24,7 +26,7 @@ export default function InfoProject({
     const [year, month, day] = e.split("-");
     const monthName = months[parseInt(month, 10) - 1];
     return `${monthName} ${day}, ${year}`;
-  }
+  };
   return (
     <div className="  p-3">
       <div className="flex flex-1  gap-1 md:flex lg:gap-40  items-center w-full">
@@ -47,4 +49,5 @@ export default function InfoProject({
       </div>
     </div>
   );
-}
+});
+export default InfoProject;

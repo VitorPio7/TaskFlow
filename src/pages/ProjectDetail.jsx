@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useOutletContext, useNavigate } from "react-router";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import InfoProject from "../components/InfoProject";
 import EditTask from "../components/EditTask";
 import Tasks from "../components/Tasks";
@@ -18,49 +18,58 @@ export default function ProjectDetail() {
     return formCreate?.find((el) => String(el?.id) === myParams.id);
   }, [formCreate]);
 
-  const deleteProject = (id) => {
-    setFormCreate((prevValue) => {
-      return prevValue.filter((el) => {
-        return id !== el.id;
+  let deleteProject = useCallback(
+    function (id) {
+      setFormCreate((prevValue) => {
+        return prevValue.filter((el) => {
+          return id !== el.id;
+        });
       });
-    });
-    navitage("/noProject");
-  };
+      navitage("/noProject");
+    },
+    [setFormCreate]
+  );
 
-  const addAnnotation = (e) => {
-    e.preventDefault();
-    const annotaitionValue = e.target.elements.annotationInput.value.trim();
-    if (!annotaitionValue) return;
-    setFormCreate((prevValue) => {
-      return prevValue.map((project) => {
-        if (String(project?.id) === myParams?.id) {
-          return {
-            ...project,
-            anotation: [...project?.anotation, annotaitionValue],
-          };
-        }
-        return project;
+  const addAnnotation = useCallback(
+    (e) => {
+      e.preventDefault();
+      const annotaitionValue = e.target.elements.annotationInput.value.trim();
+      if (!annotaitionValue) return;
+      setFormCreate((prevValue) => {
+        return prevValue.map((project) => {
+          if (String(project?.id) === myParams?.id) {
+            return {
+              ...project,
+              anotation: [...project?.anotation, annotaitionValue],
+            };
+          }
+          return project;
+        });
       });
-    });
 
-    e.target.elements.annotationInput.value = "";
-  };
+      e.target.elements.annotationInput.value = "";
+    },
+    [arrData?.anotation]
+  );
 
-  const deleteAnnotation = (e) => {
-    setFormCreate((prevValue) => {
-      return prevValue.map((project) => {
-        if (String(project?.id) === myParams.id) {
-          return {
-            ...project,
-            anotation: project.anotation.filter((el, index) => index !== e),
-          };
-        }
-        return project;
+  const deleteAnnotation = useCallback(
+    (e) => {
+      setFormCreate((prevValue) => {
+        return prevValue.map((project) => {
+          if (String(project?.id) === myParams.id) {
+            return {
+              ...project,
+              anotation: project.anotation.filter((el, index) => index !== e),
+            };
+          }
+          return project;
+        });
       });
-    });
-  };
+    },
+    [arrData?.anotation]
+  );
 
-  const editAnnotation = () => {
+  const editAnnotation = useCallback(() => {
     if (!editValue.trim()) return;
 
     setFormCreate((prevValue) => {
@@ -79,7 +88,7 @@ export default function ProjectDetail() {
     setEditIndex(null);
     setEditValue("");
     setopenBox(false);
-  };
+  }, []);
 
   return (
     <>
