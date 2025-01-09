@@ -21,7 +21,7 @@ export default function InfoProject({
       "Nov",
       "Dec",
     ];
-    const [year, month, day] = e.split("-");
+    const [year, month, day] = e?.split("-");
     const monthName = months[parseInt(month, 10) - 1];
     return `${monthName} ${day}, ${year}`;
   }

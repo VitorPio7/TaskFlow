@@ -1,17 +1,67 @@
-import { useState, useRef, useReducer } from "react";
+import { useRef, useReducer, act } from "react";
 import { NavLink, Outlet } from "react-router";
 import MainButton from "./elements/MainButton";
+let initialValue = [
+  {
+    id: "1",
+    title: "React studies",
+    descriptionRef: "Learn React from the group up",
+    date: "2024-01-09",
+    anotation: ["my name is"],
+  },
+];
+function reducer(state, action) {
+  switch (action.type) {
+    case "CREATE_TODO":
+      return [...state, action.newTODO];
+    case "ADD_ANNOTATION":
+      return {
+        ...state,
+        anotation: [...state, action.note],
+      };
+    case "DELETE_PROJECT":
+      return state.filter((el) => {
+        return action.idProject !== el.id;
+      });
+    case "ADD_ANNOTATION2":
+      return state.map((project) => {
+        if (String(project?.id) === action.info.params) {
+          return {
+            ...project,
+            anotation: [...project?.anotation, action.info.annotaitionValue],
+          };
+        }
+        return project;
+      });
+    case "DELETE_ANNOTATION":
+      return state.map((project) => {
+        if (String(project?.id) === action.info.params) {
+          return {
+            ...project,
+            anotation: project.anotation.filter(
+              (el, index) => index !== action.info.event
+            ),
+          };
+        }
+        return project;
+      });
+    case "EDIT_ANNOTATION":
+      return state.map((project) => {
+        if (String(project?.id) === action.info.params) {
+          return {
+            ...project,
+            anotation: project?.anotation.map((el, index) =>
+              index === action.info.editIndex ? action.info.editValue : el
+            ),
+          };
+        }
+        return project;
+      });
+  }
+}
 
 export default function CreatProject() {
-  let [formCreate, setFormCreate] = useState([
-    {
-      id: "1",
-      title: "React studies",
-      descriptionRef: "Learn React from the group up",
-      date: "2024-01-09",
-      anotation: ["my name is"],
-    },
-  ]);
+  let [formCreate, dispatch] = useReducer(reducer, initialValue);
 
   let titleRef = useRef(null);
   let descriptionRef = useRef(null);
@@ -20,13 +70,11 @@ export default function CreatProject() {
 
   const addAnnotation = (e) => {
     e.preventDefault();
-    if (!anotationRef.current.value.length === 0) {
+    let note = anotationRef.current.value;
+    if (!note === 0) {
       return;
     }
-    return {
-      ...prevValue,
-      anotation: [...prevValue, anotationRef.current.value],
-    };
+    dispatch({ type: "ADD_ANNOTATION", note: note });
   };
 
   const handleSubmit = (e) => {
@@ -37,18 +85,17 @@ export default function CreatProject() {
     if (title.length === 0 || description.length === 0 || date.length === 0) {
       return;
     }
-    setFormCreate((prevValue) => {
-      return [
-        ...prevValue,
-        {
-          id: String(Date.now()),
-          title: title,
-          description: description,
-          date: date,
-          anotation: [],
-        },
-      ];
-    });
+    let newTODO = {
+      id: String(Date.now()),
+      title: title,
+      description: description,
+      date: date,
+      anotation: [],
+    };
+    dispatch({ type: "CREATE_TODO", newTODO: newTODO });
+    titleRef.current.value = "";
+    descriptionRef.current.value = "";
+    dueDateRef.current.value = "";
   };
 
   return (
@@ -82,9 +129,9 @@ export default function CreatProject() {
           titleRef,
           descriptionRef,
           dueDateRef,
+          dispatch,
           handleSubmit,
           formCreate,
-          setFormCreate,
           addAnnotation,
           anotationRef,
         }}

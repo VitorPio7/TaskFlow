@@ -7,11 +7,13 @@ export default function CreatProject() {
   console.log(formCreate);
   return (
     <div className=" h-full flex justify-center p-3">
-      <form className="flex flex-col  content-center justify-center    w-60 lg:p-8 lg:w-144 lg:gap-y-3">
+      <form
+        className="flex flex-col  content-center justify-center w-60 lg:p-8 lg:w-144 lg:gap-y-3"
+        onSubmit={handleSubmit}
+      >
         <div className="flex flex-row justify-end gap-4 lg:gap-4">
           <button
             className="rounded-lg  text-white bg-green  text-sm w-16 h-7 lg:w-24 lg:h-9 shadow-md hover:bg-green2 "
-            onClick={handleSubmit}
             type="submit"
           >
             Save

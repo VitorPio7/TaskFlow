@@ -10,17 +10,13 @@ export default function ProjectDetail() {
   const [editIndex, setEditIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
   const [openBox, setopenBox] = useState(false);
-  const { formCreate, setFormCreate } = useOutletContext();
+  const { formCreate, dispatch } = useOutletContext();
   const myParams = useParams();
   const navitage = useNavigate();
   let arrData = formCreate?.find((el) => String(el?.id) === myParams.id);
 
   const deleteProject = (id) => {
-    setFormCreate((prevValue) => {
-      return prevValue.filter((el) => {
-        return id !== el.id;
-      });
-    });
+    dispatch({ type: "DELETE_PROJECT", idProject: id });
     navitage("/noProject");
   };
 
@@ -28,50 +24,27 @@ export default function ProjectDetail() {
     e.preventDefault();
     const annotaitionValue = e.target.elements.annotationInput.value.trim();
     if (!annotaitionValue) return;
-    setFormCreate((prevValue) => {
-      return prevValue.map((project) => {
-        if (String(project?.id) === myParams?.id) {
-          return {
-            ...project,
-            anotation: [...project?.anotation, annotaitionValue],
-          };
-        }
-        return project;
-      });
+    dispatch({
+      type: "ADD_ANNOTATION2",
+      info: { params: myParams.id, annotaitionValue: annotaitionValue },
     });
 
     e.target.elements.annotationInput.value = "";
   };
 
   const deleteAnnotation = (e) => {
-    setFormCreate((prevValue) => {
-      return prevValue.map((project) => {
-        if (String(project?.id) === myParams.id) {
-          return {
-            ...project,
-            anotation: project.anotation.filter((el, index) => index !== e),
-          };
-        }
-        return project;
-      });
+    dispatch({
+      type: "DELETE_ANNOTATION",
+      info: { event: e, params: myParams.id },
     });
   };
 
   const editAnnotation = () => {
     if (!editValue.trim()) return;
 
-    setFormCreate((prevValue) => {
-      return prevValue.map((project) => {
-        if (String(project?.id) === myParams.id) {
-          return {
-            ...project,
-            anotation: project?.anotation.map((el, index) =>
-              index === editIndex ? editValue : el
-            ),
-          };
-        }
-        return project;
-      });
+    dispatch({
+      type: "EDIT_ANNOTATION",
+      info: { editIndex: editIndex, editValue: editValue, params: myParams.id },
     });
     setEditIndex(null);
     setEditValue("");
