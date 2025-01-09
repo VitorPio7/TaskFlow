@@ -1,6 +1,5 @@
 import MainButton from "./elements/MainButton";
-import { memo } from "react";
-let EditTask = memo(function EditTask({ value, event, onchange, children }) {
+export default function EditTask({ value, event, onchange, children }) {
   return (
     <div className=" flex flex-col md:flex-row gap-2 w-full">
       <textarea
@@ -16,5 +15,4 @@ let EditTask = memo(function EditTask({ value, event, onchange, children }) {
       </div>
     </div>
   );
-});
-export default EditTask;
+}

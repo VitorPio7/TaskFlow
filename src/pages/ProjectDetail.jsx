@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useOutletContext, useNavigate } from "react-router";
-import { useState, useMemo, useCallback } from "react";
+import { useState } from "react";
 import InfoProject from "../components/InfoProject";
 import EditTask from "../components/EditTask";
 import Tasks from "../components/Tasks";
@@ -13,63 +13,51 @@ export default function ProjectDetail() {
   const { formCreate, setFormCreate } = useOutletContext();
   const myParams = useParams();
   const navitage = useNavigate();
+  let arrData = formCreate?.find((el) => String(el?.id) === myParams.id);
 
-  let arrData = useMemo(() => {
-    return formCreate?.find((el) => String(el?.id) === myParams.id);
-  }, [formCreate]);
-
-  let deleteProject = useCallback(
-    function (id) {
-      setFormCreate((prevValue) => {
-        return prevValue.filter((el) => {
-          return id !== el.id;
-        });
+  const deleteProject = (id) => {
+    setFormCreate((prevValue) => {
+      return prevValue.filter((el) => {
+        return id !== el.id;
       });
-      navitage("/noProject");
-    },
-    [setFormCreate]
-  );
+    });
+    navitage("/noProject");
+  };
 
-  const addAnnotation = useCallback(
-    (e) => {
-      e.preventDefault();
-      const annotaitionValue = e.target.elements.annotationInput.value.trim();
-      if (!annotaitionValue) return;
-      setFormCreate((prevValue) => {
-        return prevValue.map((project) => {
-          if (String(project?.id) === myParams?.id) {
-            return {
-              ...project,
-              anotation: [...project?.anotation, annotaitionValue],
-            };
-          }
-          return project;
-        });
+  const addAnnotation = (e) => {
+    e.preventDefault();
+    const annotaitionValue = e.target.elements.annotationInput.value.trim();
+    if (!annotaitionValue) return;
+    setFormCreate((prevValue) => {
+      return prevValue.map((project) => {
+        if (String(project?.id) === myParams?.id) {
+          return {
+            ...project,
+            anotation: [...project?.anotation, annotaitionValue],
+          };
+        }
+        return project;
       });
+    });
 
-      e.target.elements.annotationInput.value = "";
-    },
-    [arrData?.anotation]
-  );
+    e.target.elements.annotationInput.value = "";
+  };
 
-  const deleteAnnotation = useCallback(
-    (e) => {
-      setFormCreate((prevValue) => {
-        return prevValue.map((project) => {
-          if (String(project?.id) === myParams.id) {
-            return {
-              ...project,
-              anotation: project.anotation.filter((el, index) => index !== e),
-            };
-          }
-          return project;
-        });
+  const deleteAnnotation = (e) => {
+    setFormCreate((prevValue) => {
+      return prevValue.map((project) => {
+        if (String(project?.id) === myParams.id) {
+          return {
+            ...project,
+            anotation: project.anotation.filter((el, index) => index !== e),
+          };
+        }
+        return project;
       });
-    },
-    [arrData?.anotation]
-  );
+    });
+  };
 
-  const editAnnotation = useCallback(() => {
+  const editAnnotation = () => {
     if (!editValue.trim()) return;
 
     setFormCreate((prevValue) => {
@@ -88,7 +76,7 @@ export default function ProjectDetail() {
     setEditIndex(null);
     setEditValue("");
     setopenBox(false);
-  }, []);
+  };
 
   return (
     <>

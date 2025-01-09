@@ -1,8 +1,8 @@
-import { useState, useRef, useCallback, memo } from "react";
+import { useState, useRef, useReducer } from "react";
 import { NavLink, Outlet } from "react-router";
 import MainButton from "./elements/MainButton";
 
-let Layout = memo(function Layout() {
+export default function CreatProject() {
   let [formCreate, setFormCreate] = useState([
     {
       id: "1",
@@ -18,7 +18,18 @@ let Layout = memo(function Layout() {
   let dueDateRef = useRef(null);
   let anotationRef = useRef();
 
-  const handleSubmit = useCallback(function handleSubmit(e) {
+  const addAnnotation = (e) => {
+    e.preventDefault();
+    if (!anotationRef.current.value.length === 0) {
+      return;
+    }
+    return {
+      ...prevValue,
+      anotation: [...prevValue, anotationRef.current.value],
+    };
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     let title = titleRef.current.value;
     let description = descriptionRef.current.value;
@@ -38,25 +49,7 @@ let Layout = memo(function Layout() {
         },
       ];
     });
-    [setFormCreate];
-  });
-
-  const changeStructure = useCallback(
-    function changeStructure() {
-      return formCreate.map((el) => {
-        return (
-          <NavLink
-            key={el?.id}
-            to={el?.id}
-            className=" m-2 text-xs  lg:text-lg hover:text-white my-1"
-          >
-            {el?.title}
-          </NavLink>
-        );
-      });
-    },
-    [formCreate]
-  );
+  };
 
   return (
     <div className="gap-0  flex flex-col justify-items-center  lg:flex-row xl:flex-row md:flex-row lg:gap-10">
@@ -70,7 +63,17 @@ let Layout = memo(function Layout() {
             <NavLink to="/"> + ADD PROJECT</NavLink>
           </MainButton>
           <div className="grid grid-cols-3 grid-rows-7 px-4 lg:flex lg:flex-col lg:px-0 md:flex md:flex-col md:px-0">
-            {changeStructure()}
+            {formCreate.map((el, index) => {
+              return (
+                <NavLink
+                  key={index}
+                  to={el?.id}
+                  className=" m-2 text-xs  lg:text-lg hover:text-white my-1"
+                >
+                  {el?.title}
+                </NavLink>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -79,13 +82,13 @@ let Layout = memo(function Layout() {
           titleRef,
           descriptionRef,
           dueDateRef,
-          formCreate,
           handleSubmit,
+          formCreate,
           setFormCreate,
+          addAnnotation,
           anotationRef,
         }}
       />
     </div>
   );
-});
-export default Layout;
+}
